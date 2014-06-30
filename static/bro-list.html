@@ -1,0 +1,44 @@
+﻿<link rel="import" href="../components/polymer/polymer.html">
+<link rel="import" href="bro-service/bro-service.html">
+<link rel="import" href="bro-card.html">
+
+<polymer-element name="bro-list" attributes="show">
+  <template>
+    <style>
+    :host {
+      display: block;
+      width: 100%;
+    }
+    bro-card {
+      margin-bottom: 30px;
+    }
+    </style>
+
+    <!-- add markup here -->
+     <bro-service id="service" bros="{{bros}}">
+     </bro-service>
+     <div layout vertical center>
+       <template repeat="{{bro in bros}}">
+         <bro-card
+            favorite="{{bro.favorite}}"
+            vendor="{{bro.vendor}}"
+            on-favorite-tap="{{handleFavorite}}"
+            hidden?="{{show != 'all' && bro.vendor != show}}"
+            >
+           <img src="/images/{{bro.vendor}}.png" width="70" height="70">
+           <h2>{{bro.type}}</h2>
+           <p>{{bro.version}}</p>
+         </bro-card>
+       </template>
+     </div>
+  </template>
+
+  <script>
+  Polymer({
+    handleFavorite: function(event, detail, sender) {
+      var bro = sender.templateInstance.model.bro;
+      this.$.service.setFavorite(bro.uid, bro.favorite);
+  }});
+  </script>
+
+</polymer-element>

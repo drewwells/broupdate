@@ -1,0 +1,20 @@
+{
+  "name": "broupdate",
+  "version": "0.0.0",
+  "homepage": "https://github.com/drewwells/broupdate",
+  "authors": [
+    "Drew Wells <drew.wells00@gmail.com>"
+  ],
+  "description": "Browser Updates",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "polymer/Polymer#~0.3.3"
+  }
+}

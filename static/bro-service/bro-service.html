@@ -1,0 +1,54 @@
+<link rel="import" href="../components/polymer/polymer.html">
+<link rel="import" href="../components/core-ajax/core-ajax.html">
+<!--
+  `<bro-service>` provides an API for a fake service --
+  _unquote_, the read-only social networking service!
+
+  @element bro-service
+-->
+
+<polymer-element name="bro-service" attributes="bros">
+  <template>
+    <style>
+    :host {
+      display: none;
+    }
+    </style>
+    <core-ajax id="ajax"
+      auto
+      url="http://notional-arc-626.appspot.com/"
+      on-core-response="{{brosLoaded}}"
+      handleAs="json">
+    </core-ajax>
+  </template>
+  <script>
+  Polymer('bro-service', {
+    created: function() {
+      this.bros = [];
+    },
+    brosLoaded: function() {
+      // Make a copy of the loaded data
+      this.bros = this.$.ajax.response.slice(0);
+      this.bros = this.bros.map(function(p){
+        //Add vendor to dataset
+        p.vendor = p.type.split(" ")[0].toLowerCase();
+        return p;
+      });
+    },
+    /**
+     * Update the service with the current favorite value.
+     * (Two-way data binding updates the favorite value
+     * stored locally.) If this was a real service, this
+     * method would do something useful.
+     *
+     * @method setFavorite
+     * @param uid {Number} Unique ID for post.
+     * @param isFavorite {Boolean} True if the user marked this post as a favorite.
+     */
+    setFavorite: function(uid, isFavorite) {
+      // no service backend, just log the change
+      console.log('Favorite changed: ' + uid + ", now: " + isFavorite);
+    }
+  });
+  </script>
+</polymer-element>
